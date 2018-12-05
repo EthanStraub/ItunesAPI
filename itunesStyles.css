@@ -1,14 +1,23 @@
 body {
-  background-color:  #f2f2f2;
+  background-color: #bfbfbf;
 }
 
 label {
   font-size: 40px;
   background-color: white;
   display: block;
-  border: 4px solid dimgrey;
+  border-top: 4px solid dimgrey;
+  border-bottom: 4px solid dimgrey;
   padding-bottom: 5px;
-  font-family: lucida;
+  font-family: georgia;
+}
+
+img {
+  align: center;
+  display: block;
+  border: 2px solid black;
+  border-radius: 5px;
+  margin-bottom: 8px;
 }
 
 #searchButton {
@@ -20,14 +29,48 @@ label {
   padding-right: 30px;
 }
 
-#resultsTable, tr, td {
-  border: 2px solid dimgrey;
-  background-color: white;
-  padding: 40px;
-  margin: 20px;
+input {
+  text-align: center;
 }
+
+#resultsTable {
+  border-collapse: separate;
+  border-spacing: 10;
+}
+
+#resultsTable, tr, td {
+  background-color: #f2f2f2;
+  border: 2px solid #333333;
+  border-radius: 10px;
+  text-align: center;
+  padding: 1px;
+  margin: 10px;
+}
+
 .inputBox {
   font-size: 40px;
   margin: 20px;
   padding: 5px;
+}
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination a {
+  color: black;
+  float: left;
+  padding: 8px 16px;
+  text-decoration: none;
+}
+
+.pagination a.active {
+  background-color: #4CAF50;
+  color: white;
+  border-radius: 5px;
+}
+
+.pagination a:hover:not(.active) {
+  background-color: #ddd;
+  border-radius: 5px;
 }

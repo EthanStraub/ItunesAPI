@@ -7,10 +7,11 @@
 </head>
 
 <body>
+
   <center>
     <form id="jsPostData" action="https://itunes.apple.com/search?" method="post">
       <div>
-        <label for="term">Search for songs on iTunes!</label>
+        <label for="term">Search for the top 50 songs on iTunes!</label>
       </div>
       <div class = "inputBox">
         <input id="searchInput" name="term" id="term" value="">
@@ -21,15 +22,25 @@
     </form>
   </center>
 
-
 <center>
-  <table id=resultsTable></table>
-</center>
 
-<p id=resultsBox></p>
+  <div class="pagination">
+    <a href="#" id = prevButton>&laquo;</a>
+    <a href="#" id = page1>1</a>
+    <a href="#" id = page2>2</a>
+    <a href="#" id = page3>3</a>
+    <a href="#" id = page4>4</a>
+    <a href="#" id = page5>5</a>
+    <a href="#" id = nextButton>&raquo;</a>
+  </div>
+
+  <table id=resultsTable></table>
+
+</center>
 
 <script src="http://code.jquery.com/jquery-3.3.1.min.js"> </script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="http://pagination.js.org/dist/2.1.4/pagination.js"> </script>
 <script src="itunesScript.js"> </script>
 
 </body>

@@ -4,55 +4,89 @@
 //  console.log(data);
 //};
 document.getElementById('searchInput').value = ""
-var dataResults = "";
+
 var resultsArray = [];
-var searchTerms = ""
-var url = "https://itunes.apple.com/search?term="
-var hasSearched = false;
-
+var searchTerms = "";
+var dataResults = "";
+var url = "https://itunes.apple.com/search?limit=50&term=";
 var table = document.getElementById("resultsTable");
+var songIndexNum = 0;
 
-
-document.getElementById('searchButton').onclick = function() {
+function searchAPI(songIndex = 0) {
   searchTerms = document.getElementById('searchInput').value;
   searchTerms = searchTerms.replace(" ", "+");
+  url = "https://itunes.apple.com/search?limit=50&term="
   url+=searchTerms;
   $.getJSON(url,function(data){
     $.each(data, function(key, val) {
-      if(key === "results") {
-           //console.log(key);
-        for (i = 0; i < val.length; i++) {
-          console.log(val[i].trackName)
-          var row = table.insertRow([i]);
-          row.innerHTML = (i+1)+". "+val[i].trackName;
+    $("#resultsTable tr").remove();
+      if (val.length >= 1) {
+        for (i = songIndex; i < songIndex+10; i++) {
+          var newArray = val.filter(function (el) {
+            if(el.artistName !== undefined && el.trackName !== undefined)  {
+              return true;
+            } else {
+              return false;
+            }
+          });
+          if (newArray[i] === undefined) {
+            var row = table.insertRow();
+            row.innerHTML = "No more results..."
+            break;
+          }
+          var row = table.insertRow();
+          row.innerHTML = "<td>"+(i+1)+". "+newArray[i].artistName+" - "+newArray[i].trackName+"<br>"+"<a href='"+newArray[i].previewUrl+"'>Preview</a>"+"<center><img src='"+newArray[i].artworkUrl100+"' alt='Album Art' height='200' width='200'></center></td>";
         }
-        for (i = 0; i < val.length; i++) {
-        console.log(val[i].trackName)
-           resultsArray.push(" "+val[i].trackName)
-        }
-        hasSearched = true;
-        //console.log("TEST");
-        //console.log(resultsArray);
-        //resultsArray = resultsArray.toString();
-        //resultsArray = resultsArray.replace(/,\s?/g, " ");
-        document.getElementById('resultsBox').innerHTML = "Results: "+resultsArray;
-        //console.log("TEST");
-        //console.log(resultsArray);
-    } else {
-      table.innerHTML = "No results..."
-    }
+      } else if (val.length < 1) {
+        var row = table.insertRow();
+        row.innerHTML = "No results..."
+      }
     });
   });
-  //if (hasSearched) {
-    url = "https://itunes.apple.com/search?term="
-    searchTerms = "";
-    resultsArray = [];
-    var parent = document.getElementById(resultsTable);
-    while(parent.hasChildNodes())
-    {
-       parent.removeChild(parent.firstChild);
-    }
-    //hasSearched = false;
-  //}
+}
 
+document.getElementById('searchButton').onclick = function() {
+  songIndexNum = 0;
+  searchAPI(songIndexNum);
+}
+
+document.getElementById('nextButton').onclick = function() {
+  songIndexNum += 10
+  if (songIndexNum >= 40) {
+    songIndexNum = 40
+  }
+  searchAPI(songIndexNum);
+}
+
+document.getElementById('prevButton').onclick = function() {
+  songIndexNum -= 10
+  if (songIndexNum <= 0) {
+    songIndexNum = 0
+  }
+  searchAPI(songIndexNum);
+}
+
+document.getElementById('page1').onclick = function() {
+  songIndexNum = 0;
+  searchAPI(songIndexNum);
+}
+
+document.getElementById('page2').onclick = function() {
+  songIndexNum = 10;
+  searchAPI(songIndexNum);
+}
+
+document.getElementById('page3').onclick = function() {
+  songIndexNum = 20;
+  searchAPI(songIndexNum);
+}
+
+document.getElementById('page4').onclick = function() {
+  songIndexNum = 30;
+  searchAPI(songIndexNum);
+}
+
+document.getElementById('page5').onclick = function() {
+  songIndexNum = 40;
+  searchAPI(songIndexNum);
 }
